@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Card from "./components/Card";
+import { useState,useEffect } from "react";
+import { details } from "./components/Sdata";
+import Display from "./components/Display";
 
 function App() {
+  const [data, setdata] = useState({});
+
+//   useEffect(() => {
+//  console.log(data)
+//   }, [data])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        { data.name ? 
+        <Display  displays={data}  />  : null}
+      <div
+        style={{
+          flexDirection: "column",
+          display: "flex",
+          paddingLeft: "100px",
+        }}
+      >
+        {details.map((val, ind) => {
+          return (
+
+            <Card
+              key={ind}
+              name={val.name}
+              age={val.age}
+              img={val.img}
+              ind={ind}
+              onpress={(data) => {
+                console.log(data)
+                setdata({ name: data.name, age: data.age , img:data.img});
+              }}
+            />
+          );
+        })}
+      </div> 
+   
     </div>
   );
 }
 
 export default App;
+
